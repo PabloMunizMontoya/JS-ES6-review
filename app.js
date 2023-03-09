@@ -333,7 +333,91 @@ aplicarDescuento.then(resultado => {
 //-------------------------------------------------------------------
 // Promises con Ajax
 
-const descargarUsuarios = cantidad => new Promise((resolve, reject)=> {
-    
+const descargarUsuarios = cantidad => new Promise((resolve, reject) => {
+    // vamos a decirle que cantidad de usuarios pasar a la api
+
+    const api= `https://randomuser.me/api/?results=${cantidad}&nat=us`
+
+    //llamado a Ajax
+    const xhr = new XMLHttpRequest()
+
+    // abrir la conexión
+    xhr.open('GET', api, true)
+
+    // on load
+    xhr.onload = () => {
+        if(xhr.status === 200) {
+            resolve (JSON.parse(xhr.responseText).results) 
+        } else {
+            reject(Error(xhr.statusText))
+        }
+    }
+    //optional (on error)
+    xhr.onerror = (error) => reject(error)
+
+    // send
+    xhr.send()
 })
-    
+
+descargarUsuarios(30)
+    .then(
+        miembros => imprimirHTML(miembros),
+        error => console.error(
+            new Error( 'Hubo un error' + error)
+        ) 
+    )
+
+function imprimirHTML(usuarios) {
+    let html = ''
+    usuarios.map(usuario => {
+        html += `
+            <li>
+                Nombre: ${usuario.name.first}
+                País: ${usuario.nat}
+                imagen: 
+                    <img src="${usuario.picture.medium}"
+            </li>
+        `
+    })
+    const contenedorApp = document.querySelector('#app')
+    contenedorApp.innerHTML = html
+}
+
+//-----------------------------------------------
+
+// clases 
+
+class Tarea3 {
+    constructor(nombre, prioridad) {
+        this.nombre = nombre
+        this.prioridad = prioridad
+
+    }
+}
+
+// crear los objetos
+let tarea5 = new Tarea3('Aprender JS', 'Alta')
+let tarea6 = new Tarea3('Aprender react', 'Alta')
+
+console.log(tarea5)
+
+// prototype o función dentro de class
+
+class Tarea4 {
+    constructor(nombre, prioridad) {
+        this.nombre = nombre
+        this.prioridad = prioridad
+
+    }
+    mostrar() {
+        return `${this.nombre} tiene una prioridad de ${this.prioridad}`
+    }
+}
+
+// crear los objetos
+let tarea7 = new Tarea4('Aprender JS', 'Alta')
+let tarea8 = new Tarea4('Aprender react', 'Alta')
+
+console.log(tarea7.mostrar())
+console.log(tarea8.mostrar())
+

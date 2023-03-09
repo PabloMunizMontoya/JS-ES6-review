@@ -361,8 +361,24 @@ const descargarUsuarios = cantidad => new Promise((resolve, reject) => {
 
 descargarUsuarios(30)
     .then(
-        miembros => console.log(miembros),
+        miembros => imprimirHTML(miembros),
         error => console.error(
             new Error( 'Hubo un error' + error)
         ) 
     )
+
+function imprimirHTML(usuarios) {
+    let html = ''
+    usuarios.map(usuario => {
+        html += `
+            <li>
+                Nombre: ${usuario.name.first}
+                País: ${usuario.nat}
+                imagen: 
+                    <img src="${usuario.picture.medium}"
+            </li>
+        `
+    })
+    const contenedorApp = document.querySelector('#app')
+    contenedorApp.innerHTML = html
+}

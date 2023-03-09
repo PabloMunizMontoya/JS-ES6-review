@@ -333,7 +333,36 @@ aplicarDescuento.then(resultado => {
 //-------------------------------------------------------------------
 // Promises con Ajax
 
-const descargarUsuarios = cantidad => new Promise((resolve, reject)=> {
-    
+const descargarUsuarios = cantidad => new Promise((resolve, reject) => {
+    // vamos a decirle que cantidad de usuarios pasar a la api
+
+    const api= `https://randomuser.me/api/?results=${cantidad}&nat=us`
+
+    //llamado a Ajax
+    const xhr = new XMLHttpRequest()
+
+    // abrir la conexión
+    xhr.open('GET', api, true)
+
+    // on load
+    xhr.onload = () => {
+        if(xhr.status === 200) {
+            resolve (JSON.parse(xhr.responseText).results) 
+        } else {
+            reject(Error(xhr.statusText))
+        }
+    }
+    //optional (on error)
+    xhr.onerror = (error) => reject(error)
+
+    // send
+    xhr.send()
 })
-    
+
+descargarUsuarios(30)
+    .then(
+        miembros => console.log(miembros),
+        error => console.error(
+            new Error( 'Hubo un error' + error)
+        ) 
+    )

@@ -382,3 +382,41 @@ function imprimirHTML(usuarios) {
     const contenedorApp = document.querySelector('#app')
     contenedorApp.innerHTML = html
 }
+
+//-----------------------------------------------
+
+// clases 
+
+class Tarea3 {
+    constructor(nombre, prioridad) {
+        this.nombre = nombre
+        this.prioridad = prioridad
+
+    }
+}
+
+// crear los objetos
+let tarea5 = new Tarea3('Aprender JS', 'Alta')
+let tarea6 = new Tarea3('Aprender react', 'Alta')
+
+console.log(tarea5)
+
+// prototype o función dentro de class
+
+class Tarea4 {
+    constructor(nombre, prioridad) {
+        this.nombre = nombre
+        this.prioridad = prioridad
+
+    }
+    mostrar() {
+        return `${this.nombre} tiene una prioridad de ${this.prioridad}`
+    }
+}
+
+// crear los objetos
+let tarea7 = new Tarea4('Aprender JS', 'Alta')
+let tarea8 = new Tarea4('Aprender react', 'Alta')
+
+console.log(tarea7.mostrar())
+console.log(tarea8.mostrar())

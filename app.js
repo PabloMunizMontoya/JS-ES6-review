@@ -420,3 +420,4 @@ let tarea8 = new Tarea4('Aprender react', 'Alta')
 
 console.log(tarea7.mostrar())
 console.log(tarea8.mostrar())
+
